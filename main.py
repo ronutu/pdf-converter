@@ -4,6 +4,10 @@ import paragraphs
 import convert
 import combine
 import build
+import time
+
+
+start_time = time.time()
 
 
 def apply_changes(book_path, nr):
@@ -39,25 +43,27 @@ def apply_changes(book_path, nr):
 
 def main():
     book_path = r'C:\Users\Radu\PycharmProjects\pythonProject\manuale\07llr_interior_2024_book.pdf'
-    # text_attributes_list = apply_changes(book_path, 26)
-    # output = r'manuale\Info_nou\pag' + str(26) + '.html'
-    # build.build_html(text_attributes_list, output)
-    for nr in range(5, 211):
-        data = apply_changes(book_path, nr)
-        html = f"""
-                <p class="clear"></p>
-                <p class="space"></p>
-                <p class="right"><span class="page">{nr}</span></p>
-        """
-        data.append([html, 100, '100', 100, (1, 0, 0)])
-        if nr < 10:
-            output = r'manuale\Romana_nou\pag_00' + str(nr) + '.html'
-        elif nr < 100:
-            output = r'manuale\Romana_nou\pag_0' + str(nr) + '.html'
-        else:
-            output = r'manuale\Romana_nou\pag_' + str(nr) + '.html'
-        build.build_html(data, output)
-        print(f"Pagina {nr} a fost procesata")
+    text_attributes_list = apply_changes(book_path, 26)
+    output = r'manuale\Romana_nou\pag0' + str(26) + '.html'
+    build.build_html(text_attributes_list, output)
+    # for nr in range(5, 211):
+    #     data = apply_changes(book_path, nr)
+    #     html = f"""
+    #             <p class="clear"></p>
+    #             <p class="space"></p>
+    #             <p class="right"><span class="page">{nr}</span></p>
+    #     """
+    #     data.append([html, 100, '100', 100, (1, 0, 0)])
+    #     if nr < 10:
+    #         output = r'manuale\Romana_nou\pag_00' + str(nr) + '.html'
+    #     elif nr < 100:
+    #         output = r'manuale\Romana_nou\pag_0' + str(nr) + '.html'
+    #     else:
+    #         output = r'manuale\Romana_nou\pag_' + str(nr) + '.html'
+    #     build.build_html(data, output)
+    #     print(f"Pagina {nr} a fost procesata")
 
 
 main()
+
+print("--- %s seconds ---" % (time.time() - start_time))

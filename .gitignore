@@ -1,1 +1,8 @@
 manuale/
+
+venv/
+pymupdf-venv/
+.venv/
+.pymupdf-venv/
+
+test.png
