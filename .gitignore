@@ -6,3 +6,8 @@ pymupdf-venv/
 .pymupdf-venv/
 
 test.png
+
+.idea/
+
+__pycache__/
+*.pyc
