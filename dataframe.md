@@ -1,30 +1,5 @@
 |     | Text                                                                                                          |    Size | Font               |   Text color | Background color   |
 |----:|:--------------------------------------------------------------------------------------------------------------|--------:|:-------------------|-------------:|:-------------------|
-|   0 | Familia lexicală. Câmpul lexical                                                                              | 18      | PTSans-Bold        |      7547267 | (255, 255, 255)    |
-|   1 | Descoperă!                                                                                                    | 14      | ITCKabelStd-BoldRO |     16777215 | (116, 34, 131)     |
-|   2 |                                                                                                               | 10.78   | PTSans-Bold        |      2236191 | (255, 255, 255)    |
-|   3 | Consultă un dicționar!                                                                                        | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|   4 | 1                                                                                                             |  9.8995 | PTSans-Bold        |     16777215 | (255, 255, 255)    |
-|   5 | Transcrie cuvintele înrudite ca sens cu adjectivul                                                            | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|   6 | roșu                                                                                                          | 10.78   | PTSans-Bold        |     14295079 | (255, 255, 255)    |
-|   7 | din lista următoare:                                                                                          | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|   8 | roșeață,                                                                                                      | 10.8894 | PTSans-Italic      |      2236191 | (255, 255, 255)    |
-|   9 | roșcovă, (a) înroși, roșu-închis, roșcovan, a roși, Împăratul Roșu, roșioară, Lacul Roșu, mașină              | 10.8894 | PTSans-Italic      |      2236191 | (255, 255, 255)    |
-|  10 | roșie, pătlăgică-roșie, roșiatic, Marea Roșie, pieile-roșii                                                   | 10.8894 | PTSans-Italic      |      2236191 | (255, 255, 255)    |
-|  11 | .                                                                                                             | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|  12 | 2                                                                                                             |  9.8995 | PTSans-Bold        |     16777215 | (255, 255, 255)    |
-|  13 | Precizează mijloacele de îmbogățire a vocabularului prin care s-au format cuvintele                           | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|  14 | selectate la exercițiul                                                                                       | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|  15 | 1                                                                                                             | 10.78   | PTSans-Bold        |      2236191 | (255, 255, 255)    |
-|  16 | .                                                                                                             | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
-|  17 | Important                                                                                                     | 14      | ITCKabelStd-BoldRO |     16777215 | (113, 191, 67)     |
-|  18 | t                                                                                                             | 10.8894 | Wingdings3         |        32197 | (237, 246, 231)    |
-|  19 | Familia lexicală                                                                                              | 10.8894 | PTSans-Bold        |      2236191 | (237, 246, 231)    |
-|  20 | sau                                                                                                           | 10.8894 | PTSans-Regular     |      2236191 | (237, 246, 231)    |
-|  21 | familia de cuvinte                                                                                            | 10.8894 | PTSans-Bold        |      2236191 | (237, 246, 231)    |
-|  22 | cuprinde toate cuvintele înrudite ca sens, obținute prin derivare                                             | 10.8894 | PTSans-Regular     |      2236191 | (237, 246, 231)    |
-|  23 | și prin compunere de la același cuvânt de bază.                                                               | 10.8894 | PTSans-Regular     |      2236191 | (237, 246, 231)    |
-|  24 | Exersează!                                                                                                    | 14      | ITCKabelStd-BoldRO |     16777215 | (116, 34, 131)     |
 |  25 | 3                                                                                                             |  9.8995 | PTSans-Bold        |     16777215 | (255, 255, 255)    |
 |  26 | Alcătuiește familia lexicală a cuvintelor                                                                     | 10.78   | PTSans-Regular     |      2236191 | (255, 255, 255)    |
 |  27 | țară                                                                                                          | 10.78   | PTSans-Bold        |      2236191 | (255, 255, 255)    |
