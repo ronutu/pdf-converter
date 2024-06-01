@@ -125,7 +125,7 @@ def bkgr_pers(text_attributes_list):
     i = 0
     n = len(text_attributes_list)
     while i < n:
-        if text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Regular':
+        if text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Regular' and text_attributes_list[i][4] == (11, 11, 11):
             # bkgr_pers
             html = f"""
                 <div class="bkgr-pers">
@@ -143,41 +143,24 @@ def bkgr_pers(text_attributes_list):
 
 def text_imp(text_attributes_list):
     new_text_attributes_list = []
-    i = 0
-    k = 0
-    html_imp = ""
-    while i < len(text_attributes_list):
-        if 237 <= text_attributes_list[i][4][0] <= 238 and text_attributes_list[i][4][1] == 246 and 231 <= text_attributes_list[i][4][2] <= 232:
-            html_imp += text_attributes_list[i][0]
-            k += 1
-            i += 1
-        else:
-            i += 1
-    i = 0
 
-    if text_attributes_list[i][0][0] == 't':
-        pattern = r"t (?=[A-ZĂÎȘȚÂ])"
-        parts = re.split(pattern, html_imp)
-        if parts[0].startswith('t '):
-            parts[0] = parts[0][2:]
-        html_list = '<ul class="ularrow">\n'
-        for part in parts:
-            if part:
-                html_list += f"  <li>{part.strip()}</li>\n"
-        html_list += "</ul>"
-    else:
-        html_list = f"<p>{html_imp}</p>"
-
+    i = 0
     while i < len(text_attributes_list):
         if text_attributes_list[i][0].strip() == 'Important':
             html = f"""
             <h3 class="important">Important</h3>
+            """
+
+            new_text_attributes_list.append([html, 109, '109', 109, (1, 0, 9)])
+            i += 1
+        elif text_attributes_list[i][4] == (1, 0, 8):
+            html = f"""
             <div class="bkgr-imp">
-            {html_list}
+            {text_attributes_list[i][0]}
             </div>
             """
-            new_text_attributes_list.append([html, 109, '109', 109, (1, 0, 9)])
-            i += k+1
+            new_text_attributes_list.append([html, 108, '108', 108, (1, 0, 8)])
+            i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1

@@ -20,6 +20,7 @@ import convert
 import combine
 import build
 import time
+import pandas as pd
 
 
 start_time = time.time()
@@ -40,6 +41,17 @@ def apply_changes(book_path, nr):
     # print(text_attributes_list)
     text_attributes_list = combine.combine_patrat_albastru(text_attributes_list)
     # print(text_attributes_list, "\n\n")
+    text_attributes_list = combine.combine_blue_arrow(text_attributes_list)
+    # print(text_attributes_list, "\n\n")
+
+    df = pd.DataFrame(text_attributes_list, columns=['Text', 'Size', 'Font', 'Text color', 'Background color'])
+
+
+
+
+
+
+
     text_attributes_list = combine.combine_exercitiu(text_attributes_list)
     # print(text_attributes_list)
     text_attributes_list = paragraphs.bkgr_read(text_attributes_list)
@@ -47,18 +59,30 @@ def apply_changes(book_path, nr):
     text_attributes_list = paragraphs.bkgr_pers(text_attributes_list)
     # print(text_attributes_list)
     text_attributes_list = paragraphs.text_imp(text_attributes_list)
-    # print(text_attributes_list)
+    #print(text_attributes_list)
     text_attributes_list = paragraphs.paragraph(text_attributes_list)
     # print(text_attributes_list)
     text_attributes_list = paragraphs.text_galben(text_attributes_list)
     # print(text_attributes_list)
+
+
+
+
+
+    markdown_string = df.to_markdown()
+
+    # Save the Markdown string to a file
+    with open('dataframe.md', 'w', encoding="utf-8") as f:
+        f.write(markdown_string)
+
+
 
     return text_attributes_list
 
 
 def main():
     book_path = r'C:\Users\Radu\PycharmProjects\pythonProject\manuale\07llr_interior_2024_book.pdf'
-    text_attributes_list = apply_changes(book_path, 26)
+    text_attributes_list = apply_changes(book_path, 34)
     output = r'manuale\Romana_nou\pag0' + str(26) + '.html'
     build.build_html(text_attributes_list, output)
     # for nr in range(5, 211):

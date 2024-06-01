@@ -1,18 +1,3 @@
-# This file is part of pdf-convertor.
-#
-# pdf-convertor is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# pdf-convertor is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with pdf-convertor. If not, see <https://www.gnu.org/licenses/>.
-
 def combine_text(text_attributes_list):  # Combines the text with the same size and font
     new_text_attributes_list = []
     previous_text = ""
@@ -91,6 +76,7 @@ def combine_exercitiu(text_attributes_list):
     n = len(text_attributes_list)
 
     while i < n:
+        text, size, font, color, bg_color = text_attributes_list[i]
         if i < n-1:
             if (text_attributes_list[i][0] == 'Portofoliu' and text_attributes_list[i][1] == 14.0
                     and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO' and text_attributes_list[i][3] == 16777215):
@@ -191,4 +177,23 @@ def combine_exercitiu(text_attributes_list):
 
     if text_attributes_list[-1] != new_text_attributes_list[-1]:
         new_text_attributes_list.append(text_attributes_list[-1])
+    return new_text_attributes_list
+
+
+def combine_blue_arrow(text_attributes_list):
+    n = len(text_attributes_list)
+    new_text_attributes_list = []
+    for i in range(n):
+        text, size, font, color, bg_color = text_attributes_list[i]
+        if bg_color == (237, 246, 231) and text == 't':
+            html = f"""
+            <ul class="ularrow">
+            <li>{text_attributes_list[i+1][0]}</li>
+            </ul>"""
+            new_text_attributes_list.append([html, 108, '108', 108, (1, 0, 8)])
+
+        else:
+            new_text_attributes_list.append(text_attributes_list[i])
+            #print(text)
+    # print(new_text_attributes_list)
     return new_text_attributes_list

@@ -1,18 +1,3 @@
-# This file is part of pdf-convertor.
-#
-# pdf-convertor is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# pdf-convertor is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with pdf-convertor. If not, see <https://www.gnu.org/licenses/>.
-
 def pdf_to_html(text_attributes_list):
     new_text_attributes_list = []
     i = 0
@@ -93,6 +78,12 @@ def pdf_to_html(text_attributes_list):
             new_text_attributes_list.append([html, text_attributes_list[i][1], 'MinionPro-Regular', text_attributes_list[i][3],
                                              text_attributes_list[i][4]])
             i += 1
+        elif text_attributes_list[i][1] == 10.889444351196289 and text_attributes_list[i][2] == 'PTSans-Bold' and text_attributes_list[i][3] == 2236191:
+            # bold ptsans
+            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
+            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', text_attributes_list[i][3],
+                                             text_attributes_list[i][4]])
+            i += 1
         elif (text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Bold'
               and text_attributes_list[i][3] == 9710926):
             # Nume autor maro
@@ -145,7 +136,16 @@ def pdf_to_html(text_attributes_list):
             html = f"""<p class=" bold color-purple">{text_attributes_list[i][0]}</p>"""
             new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
             i += 1
-
+        elif text_attributes_list[i][2] == 'PTSans-Bold' and text_attributes_list[i][3] == 14295079:
+            # text rosu cu bold
+            html = f"""<span class="color-red bold">{text_attributes_list[i][0]}</span>"""
+            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', 2236191, text_attributes_list[i][4]])
+            i += 1
+        elif text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Bold':
+            # text bold
+            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
+            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', text_attributes_list[i][3], text_attributes_list[i][4]])
+            i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1

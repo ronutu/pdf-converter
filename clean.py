@@ -1,40 +1,29 @@
-# This file is part of pdf-convertor.
-#
-# pdf-convertor is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# pdf-convertor is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with pdf-convertor. If not, see <https://www.gnu.org/licenses/>.
+import pandas as pd
+
 
 def clean_text(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
     while i < n:
-        if text_attributes_list[i][1] == 10.0 and text_attributes_list[i][2] == 'MinionPro-Bold':
+        text, size, font, color, bkgr_color = text_attributes_list[i] 
+        if size == 10.0 and font == 'MinionPro-Bold':
             # Remove page number
             i += 1
-        elif text_attributes_list[i][0] == ' ':
+        elif text == ' ':
             # Remove empty spaces
             i += 1
-        elif text_attributes_list[i][0] == "\uf072":
+        elif text == "\uf072":
             # remove formule mate
             i += 1
-        elif text_attributes_list[i][2] == 'TimesNewRomanPS-ItalicMT' or text_attributes_list[i][2] == 'TimesNewRomanPSMT':
+        elif font == 'TimesNewRomanPS-ItalicMT' or font == 'TimesNewRomanPSMT':
             # remove alte formule mate
             i += 1
-        elif 6.24370002746582 <= text_attributes_list[i][1] <= 6.704500198364258:
+        elif 6.24370002746582 <= size <= 6.704500198364258:
             # remove alte alte formule mate
             i += 1
-        elif (text_attributes_list[i][0] == 'Limba și literatura română' and text_attributes_list[i][1] == 9.0
-              and text_attributes_list[i][2] == 'ITCKabelStd-MediumRO'
+        elif (text == 'Limba și literatura română' and size == 9.0
+              and font == 'ITCKabelStd-MediumRO'
               and text_attributes_list[i+1][0] == ' – Manual pentru clasa a VII-a'
               and text_attributes_list[i+1][1] == 9.0 and text_attributes_list[i+1][2] == 'ITCKabelStd-BookRO'
               and text_attributes_list[i+2][0] == 'Unitatea' and text_attributes_list[i+2][1] == 9.0
@@ -43,8 +32,8 @@ def clean_text(text_attributes_list):
               and text_attributes_list[i+4][1] == 11.0 and text_attributes_list[i+4][2] == 'ITCKabelStd-UltraRO'):
             # remove text de langa nr paginii
             i += 5
-        elif (text_attributes_list[i][0] == 'Fizică' and text_attributes_list[i][1] == 9.0
-              and text_attributes_list[i][2] == 'ITCKabelStd-MediumRO'
+        elif (text == 'Fizică' and size == 9.0
+              and font == 'ITCKabelStd-MediumRO'
               and text_attributes_list[i+1][0] == ' – Manual pentru clasa a VII-a'
               and text_attributes_list[i+1][1] == 9.0 and text_attributes_list[i+1][2] == 'ITCKabelStd-BookRO'
               and text_attributes_list[i+2][0] == 'Unitatea' and text_attributes_list[i+2][1] == 9.0
@@ -53,8 +42,8 @@ def clean_text(text_attributes_list):
               and text_attributes_list[i+4][1] == 11.0 and text_attributes_list[i+4][2] == 'ITCKabelStd-UltraRO'):
             # remove text de langa nr paginii
             i += 5
-        elif (text_attributes_list[i][0] == 'Informatică și TIC' and text_attributes_list[i][1] == 9.0
-              and text_attributes_list[i][2] == 'ITCKabelStd-MediumRO'
+        elif (text == 'Informatică și TIC' and size == 9.0
+              and font == 'ITCKabelStd-MediumRO'
               and text_attributes_list[i+1][0] == ' – Manual pentru clasa a VII-a'
               and text_attributes_list[i+1][1] == 9.0 and text_attributes_list[i+1][2] == 'ITCKabelStd-BookRO'
               and text_attributes_list[i+2][0] == 'Unitatea' and text_attributes_list[i+2][1] == 9.0
@@ -63,13 +52,14 @@ def clean_text(text_attributes_list):
               and text_attributes_list[i+4][1] == 11.0 and text_attributes_list[i+4][2] == 'ITCKabelStd-UltraRO'):
             # remove text de langa nr paginii
             i += 5
-        elif text_attributes_list[i][4] == (1.0, 0.9450980392156862, 0.8392156862745098):
+        elif bkgr_color == (1.0, 0.9450980392156862, 0.8392156862745098):
             # remove textul de la 'Citeste si'
             i += 1
-        elif text_attributes_list[i][0] == 'Citește și...' and text_attributes_list[i][1] == 14.0 and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO':
+        elif text == 'Citește și...' and size == 14.0 and font == 'ITCKabelStd-BoldRO':
             # Remove 'Citește și...' (se pune poza)
             i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1
+
     return new_text_attributes_list
