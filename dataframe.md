@@ -5,55 +5,6 @@
 |   2 | Unitatea                                                                                                        |  9      | ITCKabelStd-BookRO   |      2236191 | (255, 255, 255)    |
 |   3 | 95                                                                                                              | 10      | MinionPro-Bold       |      2236191 | (255, 255, 255)    |
 |   4 | 4                                                                                                               | 11      | ITCKabelStd-UltraRO  |     16777215 | (255, 255, 255)    |
-|   5 | 9                                                                                                               |  9.8995 | PTSans-Bold          |     16777215 | (255, 255, 255)    |
-|   6 | Reorganizați cele șase grupe de la începutul lecției. Citiți opera                                              | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|   7 | literară                                                                                                        | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|   8 | Boul și vițelul                                                                                                 | 10.8894 | PTSans-Italic        |      2236191 | (255, 255, 255)    |
-|   9 | de Grigore Alexandrescu.                                                                                        | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  10 | a) Completați o diagramă Venn, evidențiind asemănările și deosebirile                                           | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  11 | cu privire la structură, temă, personaje, structuri textuale.                                                   | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  12 | b) Rescrieți textul fabulei, astfel încât să fie folosit doar dialogul. Puteți                                  | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  13 | folosi ca exemplu textul                                                                                        | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  14 | Boul și vițeii                                                                                                  | 10.8894 | PTSans-Italic        |      2236191 | (255, 255, 255)    |
-|  15 | de Ion Băieșu.                                                                                                  | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  16 | c) Citiți pe roluri textul obținut la punctul                                                                   | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  17 | b)                                                                                                              | 10.78   | PTSans-Bold          |      2236191 | (255, 255, 255)    |
-|  18 | .                                                                                                               | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  19 | 10                                                                                                              |  9.8995 | PTSans-Bold          |     16777215 | (255, 255, 255)    |
-|  20 | a) Vizionează piesa de teatru                                                                                   | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  21 | Boul și vițeii                                                                                                  | 10.8894 | PTSans-Italic        |      2236191 | (255, 255, 255)    |
-|  22 | de Ion Băieșu, apoi notează două deosebiri față de text.                                                        | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  23 | b)                                                                                                              | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  24 | Lucrați în pereche!                                                                                             | 10.78   | PTSans-Bold          |      9710926 | (255, 255, 255)    |
-|  25 | Realizați un afiș pentru spectacolul vizionat.                                                                  | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  26 | 11                                                                                                              |  9.8995 | PTSans-Bold          |     16777215 | (255, 255, 255)    |
-|  27 | Documentează-te și prezintă colegilor mai multe informații despre Ion Băieșu.                                   | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  28 | Autor. Personaj dramatic. Limbaj                                                                                | 18      | PTSans-Bold          |      7547267 | (255, 255, 255)    |
-|  29 | Amintește-ți!                                                                                                   | 14      | ITCKabelStd-BoldRO   |     16777215 | (117, 34, 132)     |
-|  30 | 1                                                                                                               |  9.8995 | PTSans-Bold          |     16777215 | (255, 255, 255)    |
-|  31 | Analizează afișul realizat în lecția anterioară pentru spectacolul                                              | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  32 | Boul și vițeii                                                                                                  | 10.8894 | PTSans-Italic        |      2236191 | (255, 255, 255)    |
-|  33 | , apoi notează numele                                                                                           | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  34 | corespunzătoare următoarelor informații:                                                                        | 10.78   | PTSans-Regular       |      2236191 | (255, 255, 255)    |
-|  35 | Autor                                                                                                           |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  36 | piesă                                                                                                           |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  37 | Regizor                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  38 | Scenograf                                                                                                       |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  39 | Actorul care îl                                                                                                 |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  40 | interpretează                                                                                                   |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  41 | pe Gelu                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  42 | Actorul care îl                                                                                                 |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  43 | interpretează                                                                                                   |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  44 | pe Nelu                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  45 | Actorul care îl                                                                                                 |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  46 | interpretează                                                                                                   |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  47 | pe tată                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  48 | Actrița care o                                                                                                  |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  49 | interpretează                                                                                                   |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  50 | pe Coca                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  51 | Actrița care o                                                                                                  |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  52 | interpretează                                                                                                   |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
-|  53 | pe Nuți                                                                                                         |  9.8    | PTSans-Regular       |      2236191 | (239, 234, 244)    |
 |  54 | Citește și...                                                                                                   | 14      | ITCKabelStd-BoldRO   |      7611011 | (255, 241, 214)    |
 |  55 |                                                                                                                 | 10.9419 | Itim-Regular         |      2236191 | (255, 241, 214)    |
 |  56 | 3                                                                                                               | 10.9419 | Wingdings2           |      2236191 | (255, 241, 214)    |
@@ -73,22 +24,6 @@
 |  70 |                                                                                                                 | 10.3609 | PTSans-Italic        |      2236191 | (255, 241, 214)    |
 |  71 |                                                                                                                 | 10.3609 | PTSans-Italic        |      2236191 | (255, 241, 214)    |
 |  72 | de Pam Muñoz Ryan                                                                                               | 10.3609 | PTSans-Italic        |      2236191 | (255, 241, 214)    |
-|  73 | page_95-image_1.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  74 | page_95-image_2.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  75 | page_95-image_3.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  76 | page_95-image_4.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  77 | page_95-image_5.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  78 | page_95-image_6.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  79 | page_95-image_7.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  80 | page_95-image_8.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  81 | page_95-image_9.png                                                                                             |  0      |                      |            0 | (256, 0, 0)        |
-|  82 | page_95-image_10.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  83 | page_95-image_11.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  84 | page_95-image_12.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  85 | page_95-image_13.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  86 | page_95-image_14.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  87 | page_95-image_15.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
-|  88 | page_95-image_16.png                                                                                            |  0      |                      |            0 | (256, 0, 0)        |
 |  89 | Important                                                                                                       | 14      | ITCKabelStd-BoldRO   |     16777215 | (113, 191, 68)     |
 |  90 |                                                                                                                 | 10.8894 | PTSans-Regular       |        32197 | (238, 246, 232)    |
 |  91 | t                                                                                                               | 10.8894 | Wingdings3           |        32197 | (238, 246, 232)    |
