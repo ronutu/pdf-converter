@@ -2,150 +2,180 @@ def pdf_to_html(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
+
     while i < n:
-        if text_attributes_list[i][1] == 18.0 and text_attributes_list[i][2] == 'PTSans-Bold':
+        text, size, font, color, bkgr_color = text_attributes_list[i]
+        if size == 18.0 and font == 'PTSans-Bold':
             # Titlu romana
             html = f"""
-            <h2>{text_attributes_list[i][0]}</h2>
-            """
-            new_text_attributes_list.append([html, 101, '101', 101, (1, 0, 1)])
+        <h2>{text}</h2>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text_attributes_list[i][1] == 18.0 and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO':
+            
+        elif size == 18.0 and font == 'ITCKabelStd-BoldRO':
             # Titlu fizica
             html = f"""
-            <h2>{text_attributes_list[i][0]}</h2>
-            """
-            new_text_attributes_list.append([html, 101, '101', 101, (1, 0, 1)])
+        <h2>{text}</h2>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text_attributes_list[i][1] == 11.270000457763672 and text_attributes_list[i][2] == 'PTSans-Regular':
+
+        elif (size == 14.0 and font == 'ITCKabelStd-BoldRO' and
+              color == 16777215 and text.strip() not in ['Portofoliu', 'Important', 'Autoevaluare',
+                                                         'Organizarea portofoliului', 'Concluzii']):
+            #  nume paragraf
+            html = f"""
+               <h3>{text}</h3>
+               <p class="clear"></p>
+               """
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            i += 1
+
+        elif size in [11.270000457763672, 10.21099853515625] and font == 'PTSans-Regular':
             # Nume autor
             html = f"""
-            <h5>{text_attributes_list[i][0]}</h5>
-            """
-            new_text_attributes_list.append([html, 102, '102', 102, (1, 0, 2)])
+        <h5>{text}</h5>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text_attributes_list[i][1] == 11.5 and text_attributes_list[i][2] == 'MinionPro-It':
-            # Italic minion
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
+
+        elif 10 < size < 11 and font == 'PTSans-Italic':
+            # Italic PTSans
+            html = f"""<span class="italic">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'PTSans-Regular', color, bkgr_color])
             i += 1
-        elif text_attributes_list[i][1] == 10.889444351196289 and text_attributes_list[i][2] == 'PTSans-Italic':
-            # Italic pt sans
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 10.779999732971191, 'PTSans-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
+
+        elif (11 <= size <= 11.5 or size == 10.800000190734863) and font == 'MinionPro-It':
+            # Italic MinionPro
+            html = f"""<span class="italic">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'MinionPro-Regular', color, bkgr_color])
             i += 1
-        elif text_attributes_list[i][1] == 11.270000457763672 and text_attributes_list[i][2] == 'MinionPro-It':
-            # Italic minion pro
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.270000457763672, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
+
+        elif 10 <= size <= 11.6 and font == 'MinionPro-Bold' and color == 2236191 and text.strip() != '•':
+            # Bold MinionPro
+            html = f"""<span class="bold">{text.strip()}</span>"""
+            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', color, bkgr_color])
             i += 1
-        elif 11.326186180114746 <= text_attributes_list[i][1] <= 11.384419441223145 and text_attributes_list[i][2] == 'MinionPro-It':
-            # Italic minion pro mai mare
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
+
+        elif 10 <= size <= 11 and font == 'PTSans-Bold' and color == 2236191:
+            # Bold PTSans
+            html = f"""<span class="bold">{text.strip()}</span>"""
+            new_text_attributes_list.append([html, size, 'PTSans-Regular', color, bkgr_color])
             i += 1
-        elif text_attributes_list[i][1] == 11.154407501220703 and text_attributes_list[i][2] == 'MinionPro-It':
-            # Italic minion pro intre
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.154407501220703, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif text_attributes_list[i][1] == 10.800000190734863 and text_attributes_list[i][2] == 'MinionPro-It':
-            # Italic minion pro intre
-            html = f"""<span class="italic">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif text_attributes_list[i][1] == 11.5 and text_attributes_list[i][2] == 'MinionPro-Bold' and text_attributes_list[i][3] == 2236191:
-            # bold minion pro
-            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif text_attributes_list[i][1] == 11.384419441223145 and text_attributes_list[i][2] == 'MinionPro-Bold' and text_attributes_list[i][3] == 2236191:
-            # bold minion pro
-            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif text_attributes_list[i][1] == 11.44235610961914 and text_attributes_list[i][2] == 'MinionPro-Bold' and text_attributes_list[i][3] == 2236191:
-            # alt bold minion pro
-            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'MinionPro-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif text_attributes_list[i][1] == 10.889444351196289 and text_attributes_list[i][2] == 'PTSans-Bold' and text_attributes_list[i][3] == 2236191:
-            # bold ptsans
-            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', text_attributes_list[i][3],
-                                             text_attributes_list[i][4]])
-            i += 1
-        elif (text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Bold'
-              and text_attributes_list[i][3] == 9710926):
+
+        elif 10 <= size <= 11 and font == 'PTSans-Bold' and color == 9710926:
             # Nume autor maro
-            html = f"""<span class="bold color-marsala">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', 2236191,
-                                             text_attributes_list[i][4]])
+            html = f"""<span class="bold color-marsala">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'PTSans-Regular', 2236191, bkgr_color])
             i += 1
-        elif (text_attributes_list[i][1] == 14.0 and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO' and
-              text_attributes_list[i][3] == 7611011 and text_attributes_list[i][0] != 'Portofoliu'
-              and text_attributes_list[i][0] != 'Important'):
+        elif (size == 14.0 and font == 'ITCKabelStd-BoldRO' and
+              color == 7611011 and text != 'Portofoliu'
+              and text != 'Important' and text != 'Organizarea portofoliului'):
             # nume paragraf
-            html = f"""<h3><span class="italic">{text_attributes_list[i][0]}</span></h3>"""
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
-            i += 1
-        elif (text_attributes_list[i][1] == 14.0 and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO' and
-              text_attributes_list[i][3] == 16777215 and text_attributes_list[i][0] != 'Portofoliu' and
-              text_attributes_list[i][0].strip() != 'Important' and text_attributes_list[i][0] != "Autoevaluare"):
-            # alt nume paragraf
             html = f"""
-                        <h3>{text_attributes_list[i][0]}</h3>
-                        <p class="clear"></p>
-                    """
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
+        <h3><span class="italic">{text}</span></h3>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif (text_attributes_list[i][0] == 'Experiment' and text_attributes_list[i][1] == 14.0
-              and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO'):
+        elif size == 14.0 and bkgr_color == (237, 19, 90):
+            # observ
+            html = f"""
+         <h3 class="observ">Observ!</h3>
+         <p class="clear"></p>
+                 """
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            i += 1
+
+        elif (text == 'Experiment' and size == 14.0
+              and font == 'ITCKabelStd-BoldRO'):
             # Experiment
             html = f"""
                         <p class="experiment">Experiment</p>
                     """
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif (text_attributes_list[i][0] == 'Autoevaluare' and text_attributes_list[i][1] == 14.0
-              and text_attributes_list[i][2] == 'ITCKabelStd-BoldRO'):
+        elif text == 'Autoevaluare' and size == 14.0 and font == 'ITCKabelStd-BoldRO':
             # Autoevaluare
             html = f"""
-                        <p class="experiment">Experiment</p>
-                    """
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
+        <h3 class="important">Autoevaluare</h3>
+        """
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif (text_attributes_list[i][1] == 11.5 and text_attributes_list[i][2] == 'MinionPro-Bold'
-              and text_attributes_list[i][3] == 32197):
+        elif (size == 11.5 and font == 'MinionPro-Bold'
+              and color == 32197):
             # text albastru
-            html = f"""<span class="bold color-turcoaz">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
+            html = f"""<span class="bold color-turcoaz">{text}</span>"""
+            if bkgr_color in [(258, 0, 0), (237, 246, 231), (238, 246, 232)]:
+                new_text_attributes_list.append([html, size, font, 2236191, bkgr_color])
+            else:
+                new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif (text_attributes_list[i][1] == 11.5 and text_attributes_list[i][2] == 'MinionPro-Bold'
-              and text_attributes_list[i][3] == 7611011):
+        elif font == 'LMSans10-Bold' and size == 10.909099578857422 and color == 32197:
+            # exemplu
+            html = f"""<span class="exemplu">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'LMSans10-Regular', 2236191, bkgr_color])
+            i += 1
+        elif font == 'LMSans10-Bold' and size == 10.909099578857422 and color == 3027090:
+            # model
+            html = f"""<span class="model">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'LMSans10-Regular', 2236191, bkgr_color])
+            i += 1
+        elif size == 11.5 and font == 'MinionPro-Bold' and color == 7611011:
             # text mov
-            html = f"""<p class=" bold color-purple">{text_attributes_list[i][0]}</p>"""
-            new_text_attributes_list.append([html, 106, '106', 106, (1, 0, 6)])
+            html = f"""<span class=" bold color-purple">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'MinionPro-Regular', 2236191, bkgr_color])
             i += 1
-        elif text_attributes_list[i][2] == 'PTSans-Bold' and text_attributes_list[i][3] == 14295079:
+
+        elif size == 11.5 and font == 'ITCKabelStd-BoldRO' and color == 7611011:
+            # text mov
+            html = f"""<span class=" bold color-purple">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'MinionPro-Regular', 2236191, bkgr_color])
+            i += 1
+
+        elif font == 'PTSans-Bold' and color == 14295079:
             # text rosu cu bold
-            html = f"""<span class="color-red bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', 2236191, text_attributes_list[i][4]])
+            html = f"""<span class="color-red bold">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'PTSans-Regular', 2236191, bkgr_color])
             i += 1
-        elif text_attributes_list[i][1] == 10.779999732971191 and text_attributes_list[i][2] == 'PTSans-Bold':
-            # text bold
-            html = f"""<span class="bold">{text_attributes_list[i][0]}</span>"""
-            new_text_attributes_list.append([html, text_attributes_list[i][1], 'PTSans-Regular', text_attributes_list[i][3], text_attributes_list[i][4]])
+
+        elif font == 'PTSans-BoldItalic' and color == 2236191:
+            # PTSans bold italic
+            html = f"""<span class="italic bold">{text.strip()}</span>"""
+            new_text_attributes_list.append([html, size, 'PTSans-Regular', color, bkgr_color])
             i += 1
+
+        elif font == 'MinionPro-BoldIt' and color == 2236191:
+            # MinionPro bold italic
+            html = f"""<span class="italic bold">{text.strip()}</span>"""
+            new_text_attributes_list.append([html, size, 'MinionPro-Regular', color, bkgr_color])
+            i += 1
+        elif font == 'Itim-Regular':
+            # Titlu text
+            html = f"""
+        <h4>{text}</h4>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            i += 1
+        elif (bkgr_color in [(236, 0, 140), (236, 0, 139)] or text == 'Organizarea portofoliului') and text not in ['Important']:
+            # portofoliu
+            html = f"""
+        <h3 class="portofoliu">{text}</h3>"""
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            i += 1
+        elif text.strip() == '•' and size in [11.5, 11.030412673950195, 11.557356834411621] and font in ['MinionPro-Bold', 'SymbolMT']:
+            new_text_attributes_list.append([text, size, 'MinionPro-Regular', color, bkgr_color])
+            i += 1
+        elif i < n-1:
+            text2, size2, font2, color2, bkgr_color2 = text_attributes_list[i+1]
+            if text[-1] == 't' and text2 == ',' and size2 == 5.97760009765625:
+                # diacritice
+                text = text[:-1] + 'ț'
+                new_text_attributes_list.append([text, size, font, color, bkgr_color])
+                i += 2
+            elif text[-1] == 's' and text2 == ',' and size2 == 5.97760009765625:
+                # diacritice
+                text = text[:-1] + 'ș'
+                new_text_attributes_list.append([text, size, font, color, bkgr_color])
+                i += 2
+            else:
+                new_text_attributes_list.append(text_attributes_list[i])
+                i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1
