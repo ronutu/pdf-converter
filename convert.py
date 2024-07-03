@@ -2,7 +2,6 @@ def pdf_to_html(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
-
     while i < n:
         text, size, font, color, bkgr_color = text_attributes_list[i]
         if size == 18.0 and font == 'PTSans-Bold':
@@ -158,7 +157,7 @@ def pdf_to_html(text_attributes_list):
         <h3 class="portofoliu">{text}</h3>"""
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text.strip() == '•' and size in [11.5, 11.030412673950195, 11.557356834411621] and font in ['MinionPro-Bold', 'SymbolMT']:
+        elif text.strip() == '•' and size in [11.5, 11.030412673950195, 11.557356834411621] and font in ['MinionPro-Bold', 'SymbolMT', 'ITCKabelStd-BoldRO']:
             new_text_attributes_list.append([text, size, 'MinionPro-Regular', color, bkgr_color])
             i += 1
         elif i < n-1:

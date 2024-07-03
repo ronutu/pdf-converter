@@ -181,12 +181,13 @@ def combine_bullet(text_attributes_list):
     while i < n:
         pattern = '•'
         result = re.split(pattern, text_attributes_list[i][0])
+
         if len(result) == 1:
             new_text_attributes_list.append(text_attributes_list[i])
         else:
-
             new_text_attributes_list.append([result[0], text_attributes_list[i][1], text_attributes_list[i][2], text_attributes_list[i][3], text_attributes_list[i][4]])
             for j in range(1, len(result)):
+
                 if text_attributes_list[i][4] in [(258, 0, 0), (237, 246, 231), (238, 246, 232), (236, 240, 231)]:
                     new_text_attributes_list.append([f'''
         <p>• {result[j]}</p>\n''', 0, '0', 0, (258, 0, 0)])

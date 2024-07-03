@@ -103,7 +103,7 @@ def bkgr_read(text_attributes_list):
         <div class="bkgr-read">
             <p>{text_attributes_list[i][0]}</p>
         </div>\n"""
-            new_text_attributes_list.append([html, 103, '103', 103, (1, 0, 3)])
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
@@ -124,7 +124,7 @@ def bkgr_pers(text_attributes_list):
                         <p>{text_attributes_list[i][0]}</p>
                     </div>\n
                     """
-            new_text_attributes_list.append([html, 104, '104', 104, (1, 0, 4)])
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
         else:
             new_text_attributes_list.append(text_attributes_list[i])
