@@ -37,7 +37,8 @@ def extract_pdf(path, page_nr):
                     text_attributes_list.append([span['text'], span['size'], span['font'], span['color'], block['bg_color']])
         elif block['type'] == 1:
             text_attributes_list.append(['''
-        <img class="img-responsive" src="images/.png" alt="" />''', 0, '0', 0, (256, 0, 0)])
+        <img class="img-responsive" src="images/.jpg" alt="" />''', 0, '0', 0, (256, 0, 0)])
     image.close()
     pdf.close()
+
     return text_attributes_list

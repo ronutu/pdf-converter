@@ -51,7 +51,7 @@ def on_button_click(answer, root, path):
         port=3306,
         user="radu",
         password="1235",
-        database="manuale"
+        database="manual",
     )
 
     mycursor = mydb.cursor()

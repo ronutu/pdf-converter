@@ -31,20 +31,20 @@ def build_html(data, output_path, page_nr):
         html_file.write(html_content)
 
     filename = re.search(r'\\([^\\]+)\\', output_path).group(1)
-
+    print("asdadasdasd")
     mydb = mysql.connector.connect(
         host="127.0.0.1",
         port=3306,
         user="radu",
         password="1235",
-        database="manuale"
+        database="manual"
     )
     page_nr = str(page_nr)
     mycursor = mydb.cursor()
     for row in data:
-        if row[1] != 0 and row[2] != '0' and row[3] != 0:
-            sql = f"INSERT INTO {filename} (page_nr, text, size, font, color, bg_color) VALUES (%s, %s, %s, %s, %s, %s)"
-            text = row[0][:5000]
-            val = (page_nr, text, row[1], row[2], row[3], ','.join(map(str, row[4])))
-            mycursor.execute(sql, val)
+        # if row[1] != 0 and row[2] != '0' and row[3] != 0:
+        sql = f"INSERT INTO {filename} (page_nr, text, size, font, color, bg_color) VALUES (%s, %s, %s, %s, %s, %s)"
+        text = row[0][:5000]
+        val = (page_nr, text, row[1], row[2], row[3], ','.join(map(str, row[4])))
+        mycursor.execute(sql, val)
     mydb.commit()
