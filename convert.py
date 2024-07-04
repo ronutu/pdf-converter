@@ -2,17 +2,11 @@ def pdf_to_html(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
+
     while i < n:
         text, size, font, color, bkgr_color = text_attributes_list[i]
-        if size == 18.0 and font == 'PTSans-Bold':
-            # Titlu romana
-            html = f"""
-        <h2>{text}</h2>"""
-            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
-            i += 1
-            
-        elif size == 18.0 and font == 'ITCKabelStd-BoldRO':
-            # Titlu fizica
+        if size == 18.0 and font in ['PTSans-Bold', 'ITCKabelStd-BoldRO']:
+            # Titlu
             html = f"""
         <h2>{text}</h2>"""
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
@@ -23,8 +17,8 @@ def pdf_to_html(text_attributes_list):
                                                          'Organizarea portofoliului', 'Concluzii']):
             #  nume paragraf
             html = f"""
-               <h3>{text}</h3>
-               <p class="clear"></p>
+       <h3>{text}</h3>
+       <p class="clear"></p>
                """
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
