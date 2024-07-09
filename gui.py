@@ -47,10 +47,10 @@ def on_button_click(answer, root, path):
     _, filename = os.path.split(path)
     filename = filename[:-4]
     mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        port=3306,
-        user="radu",
-        password="1235",
+        host="",
+        port=,
+        user="",
+        password="",
         database="manuale"
     )
 
