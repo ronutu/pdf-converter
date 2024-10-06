@@ -8,8 +8,8 @@ This project provides a solution for converting textbook PDFs into clean, struct
 - Custom Lists and Layouts: Combines text blocks with similar styles, supports lists (unordered, ordered, and bullet points), and processes textbook-specific elements like exercise blocks and example sections.
 - GUI Interface: Built with Tkinter to allow easy selection of PDF files and conversion options (single page or entire textbook).
 - MySQL Integration: Saves processed text to a MySQL database for further use or analysis.
-- 
-##How It Works:
+
+## How It Works:
 1. Extract Text: The project extracts text attributes (font, size, color, etc.) from each page of the PDF.
 2. Clean and Combine: The text is cleaned and combined based on predefined rules to ensure proper formatting.
 3. Convert to HTML: Generates structured HTML with appropriate tags for headers, paragraphs, lists, and more, suitable for digital textbooks.
