@@ -1,4 +1,4 @@
-﻿# PDF to HTML convertor
+﻿# PDF to HTML converter
 This project provides a solution for converting textbook PDFs into clean, structured HTML format. It is designed to process textbooks, extract and clean text, combine elements such as lists and paragraphs, and then generate accessible HTML files.
 
 ## Features:
