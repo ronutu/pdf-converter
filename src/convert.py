@@ -2,14 +2,15 @@ def pdf_to_html(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
-
+    # print(text_attributes_list)
     while i < n:
         text, size, font, color, bkgr_color = text_attributes_list[i]
-        if size == 18.0 and font in ['PTSans-Bold', 'ITCKabelStd-BoldRO']:
+        if size == 15.0 and font in ['ITCKabelStd-BoldRO'] and color == 8399247:
+
             # Titlu
             html = f"""
         <h2>{text}</h2>"""
-            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            new_text_attributes_list.insert(0, [html, 0, '0', 0, (257, 0, 0)])
             i += 1
 
         elif (size == 14.0 and font == 'ITCKabelStd-BoldRO' and
@@ -36,16 +37,22 @@ def pdf_to_html(text_attributes_list):
             new_text_attributes_list.append([html, size, 'PTSans-Regular', color, bkgr_color])
             i += 1
 
-        elif (11 <= size <= 11.5 or size == 10.800000190734863) and font == 'MinionPro-It':
+        elif (10.5 <= size <= 11.5 or size == 10.800000190734863) and font == 'MinionPro-It':
             # Italic MinionPro
             html = f"""<span class="italic">{text}</span>"""
             new_text_attributes_list.append([html, size, 'MinionPro-Regular', color, bkgr_color])
             i += 1
 
+        elif size == 12 and font == 'Roboto-LightItalic':
+            # Italic MinionPro
+            html = f"""<span class="italic">{text}</span>"""
+            new_text_attributes_list.append([html, size, 'Roboto-Light', color, bkgr_color])
+            i += 1
+
         elif 10 <= size <= 11.6 and font == 'MinionPro-Bold' and color == 2236191 and text.strip() != '•':
             # Bold MinionPro
             html = f"""<span class="bold">{text.strip()}</span>"""
-            new_text_attributes_list.append([html, 11.5, 'MinionPro-Regular', color, bkgr_color])
+            new_text_attributes_list.append([html, 10.779999732971191, 'MinionPro-Regular', color, bkgr_color])
             i += 1
 
         elif 10 <= size <= 11 and font == 'PTSans-Bold' and color == 2236191:
@@ -172,4 +179,7 @@ def pdf_to_html(text_attributes_list):
         else:
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1
+
+
+    # print(new_text_attributes_list)
     return new_text_attributes_list

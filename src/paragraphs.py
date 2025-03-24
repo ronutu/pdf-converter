@@ -137,13 +137,14 @@ def text_imp(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     imp_text = ""
+    # print(text_attributes_list)
     while i < len(text_attributes_list):
         if text_attributes_list[i][0].strip() == 'Important' or text_attributes_list[i][0].strip() == 'Concluzii':
             html = f"""
         <h3 class="important">{text_attributes_list[i][0].strip()}</h3>"""
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text_attributes_list[i][4] in [(258, 0, 0), (237, 246, 231), (238, 246, 232), (236, 240, 231)]:
+        elif text_attributes_list[i][4] in [(258, 0, 0), (237, 246, 231), (238, 246, 232), (236, 240, 231), (233, 244, 232)]:
             imp_text += text_attributes_list[i][0]
             i += 1
         else:
@@ -167,6 +168,7 @@ def text_imp(text_attributes_list):
         {imp_text}
         </div>
         """
+
         new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
     return new_text_attributes_list
 
@@ -344,4 +346,62 @@ def text_model(text_attributes_list):
             new_text_attributes_list.append(text_attributes_list[i])
             i += 1
 
+    return new_text_attributes_list
+
+def titlu_unitate_03mat(text_attributes_list):
+    new_text_attributes_list = []
+    i = 0
+    n = len(text_attributes_list)
+    # print(text_attributes_list)
+
+
+    new_new_text_attributes_list = []
+    previous_text = ""
+    previous_size = 0
+    previous_font = ""
+    previous_color = 0
+    previous_bg_color = (0, 0, 0)
+    for element in text_attributes_list:
+        text, size, font, color, bg_color = element
+        if (previous_size == 16.0 and size == 16 and previous_color == 27537 and color == 27537 and previous_font == 'Roboto-Bold' and font == 'Roboto-Bold') or (previous_size == 18.0 and size == 18 and previous_color == 16777215 and color == 16777215 and previous_font == 'Roboto-Bold' and font == 'Roboto-Bold' and previous_bg_color == (98, 199, 204) and bg_color == (98, 199, 204)):
+            if previous_text[-1] in ['ț', 'ș']:
+                previous_text += text
+            else:
+                previous_text += " " + text
+        else:
+            if previous_text:
+                new_new_text_attributes_list.append([previous_text, previous_size, previous_font, previous_color, previous_bg_color])
+            previous_text = text
+            previous_size = size
+            previous_font = font
+            previous_color = color
+            previous_bg_color = bg_color
+
+    if previous_text:
+        new_new_text_attributes_list.append([previous_text, previous_size, previous_font, previous_color, previous_bg_color])
+    # print(new_new_text_attributes_list)
+
+    n = len(new_new_text_attributes_list)
+    while i < n:
+        if i < n-3:
+            text, size, font, color, bk_color = new_new_text_attributes_list[i]
+            if bk_color == (98, 199, 204):
+                # Combine text for titlu unitate
+                html = f"""
+        <div class="center">
+            <h1 class="titlu-unitate">
+                <span class="text-unitate">Unitatea<br/><span class="numar-unitate"></span></span>
+            {text}
+            </h1>
+        </div>
+        <p class="clear"></p>\n
+        """
+                new_text_attributes_list.insert(0, [html, 0, '0', 0, (257, 0, 0)])
+                i += 1
+            else:
+                new_text_attributes_list.append(new_new_text_attributes_list[i])
+                i += 1
+        else:
+            new_text_attributes_list.append(new_new_text_attributes_list[i])
+            i += 1
     return new_text_attributes_list

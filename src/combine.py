@@ -202,21 +202,25 @@ def combine_bullet(text_attributes_list):
     return new_text_attributes_list
 
 
+def is_exercitiu_pair(current, next_item):
+    text, size, font, color, bg_color = current
+    text2, size2, font2, color2, bg_color2 = next_item
+    return (9 <= size <= 10 and 
+            font == 'PTSans-Bold' and 
+            bg_color2 == (255, 255, 255) and 
+            font2 == 'MinionPro-Regular')
+
 def combine_exercitiu(text_attributes_list):
     new_text_attributes_list = []
     i = 0
     n = len(text_attributes_list)
+    
     while i < n:
-        text, size, font, color, bg_color = text_attributes_list[i]
-        if i < n-1:
-            text2, size2, font2, color2, bg_color2 = text_attributes_list[i+1]
-            if (size in [9.899495124816895, 10.909099578857422, 9.0]
-                    and font in ['PTSans-Bold', 'LMSans10-Bold']
-                    and bg_color2 == (255, 255, 255)
-                    and 10 <= size2 <= 12
-                    and font2 in ['PTSans-Regular', 'MinionPro-Regular', 'LMRoman10-Regular']):
-                # exercitiu pt sans regular
-                html = f"""
+        current = text_attributes_list[i]
+        if i < n - 1 and is_exercitiu_pair(current, text_attributes_list[i+1]):
+            text, _, _, _, _ = current
+            text2 = text_attributes_list[i+1][0]
+            html = f"""
         <div class="block-container">
             <span class="number">{text.strip()}</span>
             <div class="block-number-content">
@@ -224,16 +228,13 @@ def combine_exercitiu(text_attributes_list):
             </div>
         </div>
         <p class="clear"></p>\n
-                    """
-                new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
-                i += 2
-            else:
-                new_text_attributes_list.append(text_attributes_list[i])
-                i += 1
+            """
+            new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
+            i += 2
         else:
-            new_text_attributes_list.append(text_attributes_list[i])
+            new_text_attributes_list.append(current)
             i += 1
 
-    if text_attributes_list[-1] != new_text_attributes_list[-1]:
+    if text_attributes_list and new_text_attributes_list[-1] != text_attributes_list[-1]:
         new_text_attributes_list.append(text_attributes_list[-1])
     return new_text_attributes_list

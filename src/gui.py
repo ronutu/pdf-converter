@@ -8,17 +8,27 @@ import convert
 import combine
 import os
 import pymupdf
-import mysql.connector
+
+
+def remove_extra_spaces(text_list):
+    # Process each item's first element (if it's a list and a string) to remove extra spaces.
+    new_list = []
+    for item in text_list:
+        if isinstance(item, list) and len(item) > 0 and isinstance(item[0], str):
+            item[0] = item[0].replace(" .", ".").replace("( ", "(").replace(" )", ")").replace(" ,", ",")
+        new_list.append(item)
+    return new_list
 
 
 def apply_changes(book_path, nr):
     text_attributes_list = extract.extract_pdf(book_path, nr)
-
+    # print(text_attributes_list)
     transformations = [
         clean.clean_text,
         paragraphs.titlu_unitate_romana,
         paragraphs.titlu_unitate_fizica,
         paragraphs.titlu_unitate_chimie,
+        paragraphs.titlu_unitate_03mat,
         convert.pdf_to_html,
         combine.combine_text,
         combine.combine_ulv,
@@ -34,30 +44,20 @@ def apply_changes(book_path, nr):
         paragraphs.text_galben,
         paragraphs.text_mov,
         paragraphs.text_blue,
-        paragraphs.text_model
+        paragraphs.text_model,
+        remove_extra_spaces  # Newly added transformation
     ]
 
     for transform in transformations:
         text_attributes_list = transform(text_attributes_list)
-
+ # Remove elements with an empty first element
+        text_attributes_list = [item for item in text_attributes_list if not (isinstance(item, list) and len(item) > 0 and item[0] == "")]
     return text_attributes_list
 
 
 def on_button_click(answer, root, path):
     _, filename = os.path.split(path)
     filename = filename[:-4]
-    mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        port=3306,
-        user="radu",
-        password="1235",
-        database="manual",
-    )
-
-    mycursor = mydb.cursor()
-    mycursor.execute(f"DELETE FROM {filename}")
-    mydb.commit()
-
     if answer == "ONE":
         page_number = simpledialog.askinteger("Input", "Enter the page number", parent=root)
         root.destroy()
@@ -74,20 +74,20 @@ def on_button_click(answer, root, path):
     elif answer == "ALL":
         root.destroy()
         doc = pymupdf.open(path)
-        for page_nr in range(7, len(doc) - 5):
+        for page_nr in range(len(doc)):
             data = apply_changes(path, page_nr)
             html = f"""
-                <p class="clear"></p>
-                <p class="space"></p>
-                <p class="right"><span class="page">{page_nr}</span></p>
-                """
+        <p class="clear"></p>
+        <p class="space"></p>
+        <p class="right"><span class="page">{page_nr}</span></p>
+        """
             data.append([html, 0, '0', 0, (257, 0, 0)])
-            if page_nr < 10:
-                output = r'manuale\\' + filename + r'\pag_00' + str(page_nr) + '.html'
+            if page_nr+2 < 10:
+                output = r'manuale\\' + filename + r'\pag_00' + str(page_nr+2) + '.html'
             elif page_nr < 100:
-                output = r'manuale\\' + filename + r'\pag_0' + str(page_nr) + '.html'
+                output = r'manuale\\' + filename + r'\pag_0' + str(page_nr+2) + '.html'
             else:
-                output = r'manuale\\' + filename + r'\pag_' + str(page_nr) + '.html'
+                output = r'manuale\\' + filename + r'\pag_' + str(page_nr+2) + '.html'
             build.build_html(data, output, page_nr)
             print(f"Pagina {page_nr} a fost procesata")
 
@@ -112,7 +112,7 @@ def create_question_box():
     root.deiconify()
     root.title("Textbook")
 
-    question_label = tk.Label(root, text="One page or whole file?")
+    question_label = tk.Label(root, text="One page/all pages?")
     question_label.pack(pady=20)
 
     button_frame = tk.Frame(root)
