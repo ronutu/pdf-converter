@@ -1,13 +1,15 @@
+import os
 import tkinter as tk
 from tkinter import filedialog, simpledialog
-import build
-import extract
-import clean
-import paragraphs
-import convert
-import combine
-import os
+
 import pymupdf
+
+import build
+import clean
+import combine
+import convert
+import extract
+import paragraphs
 
 
 def remove_extra_spaces(text_list):
@@ -15,7 +17,13 @@ def remove_extra_spaces(text_list):
     new_list = []
     for item in text_list:
         if isinstance(item, list) and len(item) > 0 and isinstance(item[0], str):
-            item[0] = item[0].replace(" .", ".").replace("( ", "(").replace(" )", ")").replace(" ,", ",")
+            item[0] = (
+                item[0]
+                .replace(" .", ".")
+                .replace("( ", "(")
+                .replace(" )", ")")
+                .replace(" ,", ",")
+            )
         new_list.append(item)
     return new_list
 
@@ -45,13 +53,17 @@ def apply_changes(book_path, nr):
         paragraphs.text_mov,
         paragraphs.text_blue,
         paragraphs.text_model,
-        remove_extra_spaces  # Newly added transformation
+        remove_extra_spaces,  # Newly added transformation
     ]
 
     for transform in transformations:
         text_attributes_list = transform(text_attributes_list)
- # Remove elements with an empty first element
-        text_attributes_list = [item for item in text_attributes_list if not (isinstance(item, list) and len(item) > 0 and item[0] == "")]
+        # Remove elements with an empty first element
+        text_attributes_list = [
+            item
+            for item in text_attributes_list
+            if not (isinstance(item, list) and len(item) > 0 and item[0] == "")
+        ]
     return text_attributes_list
 
 
@@ -59,16 +71,18 @@ def on_button_click(answer, root, path):
     _, filename = os.path.split(path)
     filename = filename[:-4]
     if answer == "ONE":
-        page_number = simpledialog.askinteger("Input", "Enter the page number", parent=root)
+        page_number = simpledialog.askinteger(
+            "Input", "Enter the page number", parent=root
+        )
         root.destroy()
         text_attributes_list = apply_changes(path, page_number)
 
         if page_number < 10:
-            output = r'manuale\\' + filename + r'\pag_00' + str(page_number) + '.html'
+            output = r"manuale\\" + filename + r"\pag_00" + str(page_number) + ".html"
         elif page_number < 100:
-            output = r'manuale\\' + filename + r'\pag_0' + str(page_number) + '.html'
+            output = r"manuale\\" + filename + r"\pag_0" + str(page_number) + ".html"
         else:
-            output = r'manuale\\' + filename + r'\pag_' + str(page_number) + '.html'
+            output = r"manuale\\" + filename + r"\pag_" + str(page_number) + ".html"
         build.build_html(text_attributes_list, output, page_number)
 
     elif answer == "ALL":
@@ -81,13 +95,17 @@ def on_button_click(answer, root, path):
         <p class="space"></p>
         <p class="right"><span class="page">{page_nr}</span></p>
         """
-            data.append([html, 0, '0', 0, (257, 0, 0)])
-            if page_nr+2 < 10:
-                output = r'manuale\\' + filename + r'\pag_00' + str(page_nr+2) + '.html'
+            data.append([html, 0, "0", 0, (257, 0, 0)])
+            if page_nr + 2 < 10:
+                output = (
+                    r"manuale\\" + filename + r"\pag_00" + str(page_nr + 2) + ".html"
+                )
             elif page_nr < 100:
-                output = r'manuale\\' + filename + r'\pag_0' + str(page_nr+2) + '.html'
+                output = (
+                    r"manuale\\" + filename + r"\pag_0" + str(page_nr + 2) + ".html"
+                )
             else:
-                output = r'manuale\\' + filename + r'\pag_' + str(page_nr+2) + '.html'
+                output = r"manuale\\" + filename + r"\pag_" + str(page_nr + 2) + ".html"
             build.build_html(data, output, page_nr)
             print(f"Pagina {page_nr} a fost procesata")
 
@@ -118,10 +136,14 @@ def create_question_box():
     button_frame = tk.Frame(root)
     button_frame.pack(pady=10)
 
-    button_aaa = tk.Button(button_frame, text="ONE", command=lambda: on_button_click("ONE", root, path))
+    button_aaa = tk.Button(
+        button_frame, text="ONE", command=lambda: on_button_click("ONE", root, path)
+    )
     button_aaa.pack(side=tk.LEFT, padx=10)
 
-    button_bbb = tk.Button(button_frame, text="ALL", command=lambda: on_button_click("ALL", root, path))
+    button_bbb = tk.Button(
+        button_frame, text="ALL", command=lambda: on_button_click("ALL", root, path)
+    )
     button_bbb.pack(side=tk.LEFT, padx=10)
 
     root.mainloop()

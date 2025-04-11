@@ -14,7 +14,7 @@ def build_html(data, output_path, page_nr):
     i = 0
     while i < len(data):
         text, font_size, font_type, color, bg_color = data[i]
-        if font_size == 0 and font_type == '0' and color == 0:
+        if font_size == 0 and font_type == "0" and color == 0:
             html_content += text
         i += 1
     html_content += """
@@ -23,5 +23,5 @@ def build_html(data, output_path, page_nr):
 </html>
     """
 
-    with open(output_path, 'w', encoding='utf-8') as html_file:
+    with open(output_path, "w", encoding="utf-8") as html_file:
         html_file.write(html_content)

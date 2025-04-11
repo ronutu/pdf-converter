@@ -14,10 +14,10 @@
 # along with pdf-converter. If not, see <https://www.gnu.org/licenses/>.
 
 
-import gui
 import time
 from datetime import timedelta
 
+import gui
 
 start_time = time.time()
 
