@@ -14,12 +14,7 @@
 # along with pdf-converter. If not, see <https://www.gnu.org/licenses/>.
 
 
-import time
-from datetime import timedelta
-
 import gui
-
-start_time = time.time()
 
 
 def main():
@@ -27,7 +22,3 @@ def main():
 
 
 main()
-
-elapsed = time.time() - start_time
-formatted_elapsed = str(timedelta(seconds=int(elapsed)))
-print(f"Elapsed time: {formatted_elapsed}")
