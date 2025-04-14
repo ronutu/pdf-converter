@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template_string, request, send_from_directory
 
 from src.build import build_html
 from src.clean import clean_text
@@ -12,18 +12,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-
-# Vulnerable Endpoint 1: Directory Traversal
-@app.route("/download")
-def download():
-    # Get filename directly from query parameter (vulnerable to directory traversal)
-    filename = request.args.get("file")
-    # Intentionally no sanitization
-    file_path = os.path.join(UPLOAD_FOLDER, filename)
-    with open(file_path, "r") as f:
-        content = f.read()
-    return content
 
 
 # Vulnerable Endpoint 2: SQL Injection & XSS Issue
@@ -93,6 +81,17 @@ def view():
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
     return content
+
+
+@app.route("/image")
+def image():
+    filename = request.args.get("filename")
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+
+
+@app.route("/")
+def home():
+    return '<h1>Welcome to the PDF Converter</h1><img src="image?filename=58.jpg" alt="Image">'
 
 
 if __name__ == "__main__":
