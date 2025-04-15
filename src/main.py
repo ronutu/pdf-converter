@@ -13,12 +13,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with pdf-converter. If not, see <https://www.gnu.org/licenses/>.
 
+import sys
 
 import gui
 
 
 def main():
-    gui.create_question_box()
+    if len(sys.argv) > 1:
+        gui.create_question_box()
+        # Add logic to process the file here
+    else:
+        print("No filename provided. Running GUI...")
+        gui.create_question_box()
 
 
-main()
+if __name__ == "__main__":
+    main()

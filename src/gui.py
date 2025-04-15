@@ -70,6 +70,7 @@ def apply_changes(book_path, nr):
 def on_button_click(answer, root, path):
     _, filename = os.path.split(path)
     filename = filename[:-4]
+    
     if answer == "ONE":
         page_number = simpledialog.askinteger(
             "Input", "Enter the page number", parent=root
