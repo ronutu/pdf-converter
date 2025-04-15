@@ -1,7 +1,9 @@
 import os
 import sqlite3
+from subprocess import Popen
 
 from flask import Flask, render_template_string, request, send_from_directory
+from werkzeug.utils import secure_filename
 
 from src.build import build_html
 from src.clean import clean_text
@@ -86,12 +88,28 @@ def view():
 @app.route("/image")
 def image():
     filename = request.args.get("filename")
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    with open(file_path, "r") as f:
+        content = f.read()
+    return content
+
+
+@app.route("/run-script", methods=["POST"])
+def run_script():
+    # Run the src/main.py script
+    Popen(["python", "src/main.py"])
+    return "<p>Script is running!</p>"
 
 
 @app.route("/")
 def home():
-    return '<h1>Welcome to the PDF Converter</h1><img src="image?filename=58.jpg" alt="Image">'
+    return """
+    <h1>PDF Converter</h1>
+    <img src="image?filename=58.jpg" alt="Image">
+    <form action="/run-script" method="post">
+        <button type="submit">Run Script</button>
+    </form>
+    """
 
 
 if __name__ == "__main__":
