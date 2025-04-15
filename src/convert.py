@@ -15,7 +15,7 @@ def pdf_to_html(text_attributes_list):
 
         elif (size == 14.0 and font == 'ITCKabelStd-BoldRO' and
               color == 16777215 and text.strip() not in ['Portofoliu', 'Important', 'Autoevaluare',
-                                                         'Organizarea portofoliului', 'Concluzii']):
+                                                         'Organizarea portofoliului', 'Concluzii', 'Concluzii:']):
             #  nume paragraf
             html = f"""
        <h3>{text}</h3>
@@ -71,7 +71,7 @@ def pdf_to_html(text_attributes_list):
               and text != 'Important' and text != 'Organizarea portofoliului'):
             # nume paragraf
             html = f"""
-        <h3><span class="italic">{text}</span></h3>"""
+        <h2 class="lesson-title">{text}</h2>"""
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
         elif size == 14.0 and bkgr_color == (237, 19, 90):

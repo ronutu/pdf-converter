@@ -139,12 +139,12 @@ def text_imp(text_attributes_list):
     imp_text = ""
     # print(text_attributes_list)
     while i < len(text_attributes_list):
-        if text_attributes_list[i][0].strip() == 'Important' or text_attributes_list[i][0].strip() == 'Concluzii':
+        if text_attributes_list[i][0].strip() == 'Important' or text_attributes_list[i][0].strip() == 'Concluzii' or text_attributes_list[i][0].strip() == 'Concluzii:':
             html = f"""
         <h3 class="important">{text_attributes_list[i][0].strip()}</h3>"""
             new_text_attributes_list.append([html, 0, '0', 0, (257, 0, 0)])
             i += 1
-        elif text_attributes_list[i][4] in [(258, 0, 0), (237, 246, 231), (238, 246, 232), (236, 240, 231), (233, 244, 232)]:
+        elif text_attributes_list[i][4] in [(258, 0, 0), (237, 246, 231), (238, 246, 232), (236, 240, 231), (233, 244, 232), (232, 244, 231)]:
             imp_text += text_attributes_list[i][0]
             i += 1
         else:
