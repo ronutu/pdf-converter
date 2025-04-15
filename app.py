@@ -21,6 +21,7 @@ def image():
     filename = request.args.get("filename")
     return send_from_directory(UPLOAD_FOLDER, filename)
 
+
 @app.route("/run-script", methods=["POST"])
 def run_script():
     # Get the filename from the request
@@ -32,6 +33,47 @@ def run_script():
     os.system(f"echo {filename}")
 
     return f"<p>{os.system(f"echo {filename}")}</p>"
+
+@app.route('/render')
+def render_user_input():
+    # Suppose the user provides some text to be displayed on the result page.
+    user_content = request.args.get('content', '')
+    # Directly incorporating user-supplied content into a template using render_template_string
+    # Without proper sanitization, this is vulnerable to SSTI.
+    template = f"<html><body><h1>User Content</h1><div>{user_content}</div></body></html>"
+    return render_template_string(template)
+
+
+@app.route("/logs")
+def logs():
+    conn = sqlite3.connect("logs.db")
+    cursor = conn.cursor()
+    query = request.args.get("query")  # User-provided query
+    result = cursor.execute(
+        f"SELECT * FROM logs WHERE {query}"
+    ).fetchall()  # Vulnerable to SQL Injection
+    conn.close()
+    return render_template_string(
+        "<ul>{% for row in result %}<li>{{ row }}</li>{% endfor %}</ul>", result=result
+    )
+
+
+@app.route("/xss")
+def xss():
+    user_input = request.args.get("input")  # User-provided input
+    return f"<p>{user_input}</p>"  # Rendering unsanitized input directly
+
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    if "file" not in request.files:
+        return "No file part"
+    file = request.files["file"]
+    if file.filename == "":
+        return "No selected file"
+    # Saving the file without validating its type or content
+    file.save(os.path.join(app.config["UPLOAD_FOLDER"], file.filename))
+    return "File uploaded successfully"
 
 
 @app.route("/")
