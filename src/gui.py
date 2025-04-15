@@ -76,19 +76,19 @@ def on_button_click(answer, root, path):
         doc = pymupdf.open(path)
         for page_nr in range(6 ,len(doc)):
             data = apply_changes(path, page_nr)
-            html = f"""
-        <p class="clear"></p>
-        <p class="space"></p>
-        <p class="right"><span class="page">{page_nr}</span></p>
-        """
-            data.append([html, 0, '0', 0, (257, 0, 0)])
+        #     html = f"""
+        # <p class="clear"></p>
+        # <p class="space"></p>
+        # <p class="right"><span class="page">{page_nr}</span></p>
+        # """
+        #     data.append([html, 0, '0', 0, (257, 0, 0)])
             if page_nr < 10:
                 output = r'manuale\\' + filename + r'\pag_00' + str(page_nr) + '.html'
             elif page_nr < 100:
                 output = r'manuale\\' + filename + r'\pag_0' + str(page_nr) + '.html'
             else:
                 output = r'manuale\\' + filename + r'\pag_' + str(page_nr) + '.html'
-            build.build_html(data, output, page_nr)
+            build.build_html(data, output)
             print(f"Pagina {page_nr} a fost procesata")
 
 

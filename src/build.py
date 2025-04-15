@@ -1,4 +1,4 @@
-def build_html(data, output_path, page_nr):
+def build_html(data, output_path):
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
