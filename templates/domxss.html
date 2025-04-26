@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DOM XSS Playground</title>
+  </head>
+  <body>
+    <h2>DOM-based XSS – the payload lives in the hash</h2>
+    <p id="out">Waiting for your payload…</p>
+
+    <script>
+      // The whole hash – no sanitisation at all 💥
+      const payload = decodeURIComponent(location.hash.substring(1));
+      document.getElementById("out").innerHTML = payload;
+    </script>
+  </body>
+</html>

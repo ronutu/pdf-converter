@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PDF → HTML Converter (Vuln Edition)</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Path-traversal target -->
+    <img
+      src="/image?filename=static/images/logo.png"
+      alt="Site Logo"
+      width="180"
+    />
+
+    <h2>Upload & convert</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" /><br /><br />
+
+      <!-- NEW: ask for the page -->
+      <label>
+        Page # (first page = 1):
+        <input
+          type="number"
+          name="page"
+          min="1"
+          value="1"
+          style="width: 70px"
+        /> </label
+      ><br /><br />
+
+      <button type="submit">Upload</button>
+    </form>
+
+    <h2>Try the labs</h2>
+    <ul>
+      <li>
+        <a href="/xss?input=%3Cscript%3Ealert('XSS')%3C/script%3E"
+          >Reflected XSS</a
+        >
+      </li>
+      <li><a href="/domxss">DOM XSS page</a></li>
+      <li><a href="/render?content={{7*7}}">SSTI demo</a></li>
+      <li><a href="/logs?query=1=1--">SQL inj demo</a></li>
+    </ul>
+  </body>
+</html>

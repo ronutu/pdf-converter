@@ -70,7 +70,7 @@ def apply_changes(book_path, nr):
 def on_button_click(answer, root, path):
     _, filename = os.path.split(path)
     filename = filename[:-4]
-    
+
     if answer == "ONE":
         page_number = simpledialog.askinteger(
             "Input", "Enter the page number", parent=root
@@ -85,30 +85,6 @@ def on_button_click(answer, root, path):
         else:
             output = r"manuale\\" + filename + r"\pag_" + str(page_number) + ".html"
         build.build_html(text_attributes_list, output, page_number)
-
-    elif answer == "ALL":
-        root.destroy()
-        doc = pymupdf.open(path)
-        for page_nr in range(len(doc)):
-            data = apply_changes(path, page_nr)
-            html = f"""
-        <p class="clear"></p>
-        <p class="space"></p>
-        <p class="right"><span class="page">{page_nr}</span></p>
-        """
-            data.append([html, 0, "0", 0, (257, 0, 0)])
-            if page_nr + 2 < 10:
-                output = (
-                    r"manuale\\" + filename + r"\pag_00" + str(page_nr + 2) + ".html"
-                )
-            elif page_nr < 100:
-                output = (
-                    r"manuale\\" + filename + r"\pag_0" + str(page_nr + 2) + ".html"
-                )
-            else:
-                output = r"manuale\\" + filename + r"\pag_" + str(page_nr + 2) + ".html"
-            build.build_html(data, output, page_nr)
-            print(f"Pagina {page_nr} a fost procesata")
 
 
 def create_question_box():
@@ -131,7 +107,7 @@ def create_question_box():
     root.deiconify()
     root.title("Textbook")
 
-    question_label = tk.Label(root, text="One page/all pages?")
+    question_label = tk.Label(root, text="One page")
     question_label.pack(pady=20)
 
     button_frame = tk.Frame(root)
@@ -141,10 +117,5 @@ def create_question_box():
         button_frame, text="ONE", command=lambda: on_button_click("ONE", root, path)
     )
     button_aaa.pack(side=tk.LEFT, padx=10)
-
-    button_bbb = tk.Button(
-        button_frame, text="ALL", command=lambda: on_button_click("ALL", root, path)
-    )
-    button_bbb.pack(side=tk.LEFT, padx=10)
 
     root.mainloop()

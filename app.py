@@ -1,91 +1,127 @@
 import os
 import sqlite3
-from subprocess import Popen
+import urllib.parse
+from subprocess import getoutput
 
-from flask import Flask, render_template_string, request, send_from_directory
-from werkzeug.utils import secure_filename
-
-from src.build import build_html
-from src.clean import clean_text
-from src.convert import pdf_to_html
-from src.extract import extract_pdf
+from flask import Flask, render_template, render_template_string, request, send_file
 
 app = Flask(__name__)
-UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 @app.route("/image")
 def image():
-    filename = request.args.get("filename")
-    return send_from_directory(UPLOAD_FOLDER, filename)
+    raw_name = request.args.get("filename", "")
+    # naïve blacklist – decode *after* the check → bypass with "..%2
+    if "../" in raw_name or "%2e" in raw_name.lower():
+        return "❌ Suspicious filename", 400
+
+    filename = urllib.parse.unquote(raw_name)  # decode only now
+    file_path = os.path.join(BASE_DIR, filename)  # attacker controls this
+    try:
+        return send_file(file_path)
+    except FileNotFoundError:
+        return "❌ File not found", 404
 
 
+# ---------------------------------------------------------------------------
+# 2. *Command-injection* via unsanitised file name
+# ---------------------------------------------------------------------------
 @app.route("/run-script", methods=["POST"])
 def run_script():
-    # Get the filename from the request
-    filename = request.form.get("filename")
-
-    # Construct the command using os.system() without sanitizing the filename
-    command = f"python src/main.py"
-    os.system(command)
-    os.system(f"echo {filename}")
-
-    return f"<p>{os.system(f"echo {filename}")}</p>"
-
-@app.route('/render')
-def render_user_input():
-    # Suppose the user provides some text to be displayed on the result page.
-    user_content = request.args.get('content', '')
-    # Directly incorporating user-supplied content into a template using render_template_string
-    # Without proper sanitization, this is vulnerable to SSTI.
-    template = f"<html><body><h1>User Content</h1><div>{user_content}</div></body></html>"
-    return render_template_string(template)
+    # User is *expected* to smuggle shell metacharacters here
+    filename = request.form.get("filename", "")
+    # Run conversion script (path fixed) …
+    os.system("python src/main.py")
+    # …and blindly echo the user-supplied value (vulnerability!)
+    output = getoutput(f"echo {filename}")
+    return f"<pre>{output}</pre>"
 
 
+# ---------------------------------------------------------------------------
+# 3. *SSTI* – raw Jinja2 template execution
+# ---------------------------------------------------------------------------
+@app.route("/render", methods=["GET", "POST"])
+def unsafe_render():
+    user_content = request.values.get("content", "")
+    return render_template_string(user_content)  # {{ self.__class__.mro() }}
+
+
+# ---------------------------------------------------------------------------
+# 4. *SQL-injection* – dangerous string interpolation in WHERE clause
+# ---------------------------------------------------------------------------
 @app.route("/logs")
 def logs():
+    query = request.args.get("query", "1=1")  # attacker controls WHERE
     conn = sqlite3.connect("logs.db")
-    cursor = conn.cursor()
-    query = request.args.get("query")  # User-provided query
-    result = cursor.execute(
-        f"SELECT * FROM logs WHERE {query}"
-    ).fetchall()  # Vulnerable to SQL Injection
+    cur = conn.cursor()
+    rows = cur.execute(f"SELECT * FROM logs WHERE {query}").fetchall()
     conn.close()
     return render_template_string(
-        "<ul>{% for row in result %}<li>{{ row }}</li>{% endfor %}</ul>", result=result
+        "<ul>{% for r in rows %}<li>{{ r }}</li>{% endfor %}</ul>", rows=rows
     )
 
 
+# ---------------------------------------------------------------------------
+# 5. *Reflected XSS*
+# ---------------------------------------------------------------------------
 @app.route("/xss")
 def xss():
-    user_input = request.args.get("input")  # User-provided input
-    return f"<p>{user_input}</p>"  # Rendering unsanitized input directly
+    user_input = request.args.get("input", "")
+    return f"<p>{user_input}</p>"  # no escaping – enjoy! :)
 
 
+# ---------------------------------------------------------------------------
+# 6. Upload + automatic conversion (uses whatever you already wrote)
+# ---------------------------------------------------------------------------
+# ─── app.py  (only the /upload view needs a tweak) ────────────────────────────
 @app.route("/upload", methods=["POST"])
 def upload():
-    if "file" not in request.files:
-        return "No file part"
-    file = request.files["file"]
-    if file.filename == "":
-        return "No selected file"
-    # Saving the file without validating its type or content
-    file.save(os.path.join(app.config["UPLOAD_FOLDER"], file.filename))
-    return "File uploaded successfully"
+    if "file" not in request.files or request.files["file"].filename == "":
+        return "No file selected", 400
+
+    f = request.files["file"]
+    in_path = os.path.join(app.config["UPLOAD_FOLDER"], f.filename)
+    f.save(in_path)
+
+    out_html = os.path.join(app.config["UPLOAD_FOLDER"], "output.html")
+
+    # NEW: grab the number; default to 1
+    page_raw = request.form.get("page", "1")
+    # (we *deliberately* skip robust validation because the whole app is a lab)
+    page_nr = int(page_raw)
+
+    # main.py expects:  python src/main.py <pdf> <html>   <page_nr>
+    os.system(f'python src/main.py "{in_path}" "{out_html}" {page_nr}')
+
+    return render_template(
+        "download.html", file_url=f"/download?filename={os.path.basename(out_html)}"
+    )
 
 
+@app.route("/download")
+def download():
+    fname = request.args.get("filename", "")
+    return send_file(os.path.join(UPLOAD_FOLDER, fname), as_attachment=True)
+
+
+# ---------------------------------------------------------------------------
+#  Simple pages & helpers
+# ---------------------------------------------------------------------------
 @app.route("/")
 def home():
-    return """
-    <h1>PDF Converter</h1>
-    <img src="image?filename=58.jpg" alt="Image">
-    <form action="/run-script" method="post">
-        <button type="submit">Run Script</button>
-    </form>
-    """
+    return render_template("home.html")
+
+
+@app.route("/domxss")
+def domxss():
+    return render_template("domxss.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Debug mode *on purpose* so Werkzeug exposes the interactive console
+    app.run(debug=True, host="0.0.0.0", port=5000)
