@@ -16,7 +16,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/image")
 def image():
     raw_name = request.args.get("filename", "")
-    # naïve blacklist – decode *after* the check → bypass with "..%2
+    # naïve blacklist – decode *after* the check → bypass with "..%2f
     if "../" in raw_name or "%2e" in raw_name.lower():
         return "❌ Suspicious filename", 400
 
