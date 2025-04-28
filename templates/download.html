@@ -3,55 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <title>Your converted HTML file</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
   <body>
-    <h2>Conversion complete</h2>
-    <p><a href="{{ file_url }}">Download the generated HTML</a></p>
+    <div class="card">
+      <h2>Conversion complete 🎉</h2>
+      <p><a href="{{ file_url }}">Download the generated HTML</a></p>
 
-    <h3>Conversion log</h3>
-    <form id="logForm" style="margin-bottom: 1rem">
-      <label>
-        HTML file&nbsp;name:
-        <input
-          type="text"
-          name="fname"
-          placeholder="output.html"
-          style="width: 14rem"
-        />
-      </label>
-      <button type="submit">Find entry</button>
-    </form>
+      <h3>Conversion log</h3>
+      <form id="logForm" style="margin-bottom: 1rem">
+        <label>
+          HTML file&nbsp;name:
+          <input
+            type="text"
+            name="fname"
+            placeholder="output.html"
+            style="width: 14rem"
+          />
+        </label>
+        <button type="submit">Find entry</button>
+      </form>
 
-    <pre
-      id="logBox"
-      style="
-        font-family: monospace;
-        white-space: pre-wrap;
-        border: 1px solid #ccc;
-        padding: 0.5rem;
-        max-height: 12rem;
-        overflow: auto;
-      "
-    ></pre>
+      <pre id="logBox" style="max-height: 12rem"></pre>
+
+      <p style="margin-top: 1.5rem"><a href="/">← Back to home</a></p>
+    </div>
 
     <script>
-      const safeName = /^[\w.\-]+$/;
+      const safeName = /^[\\w.\\-]+$/;
       document.getElementById("logForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const raw = e.target.fname.value.trim();
-        if (!raw) {
-          return;
-        }
+        if (!raw) return;
         const where = safeName.test(raw) ? `message LIKE '%${raw}%'` : raw;
         fetch("/records?query=" + encodeURIComponent(where))
           .then((r) => r.text())
-          .then((txt) => {
-            document.getElementById("logBox").innerHTML = txt;
-          })
+          .then((txt) => (document.getElementById("logBox").innerHTML = txt))
           .catch((err) => alert("Error loading log: " + err));
       });
     </script>
-
-    <p><a href="/">← Back to home</a></p>
   </body>
 </html>

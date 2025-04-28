@@ -10,41 +10,36 @@
   </head>
   <body>
     <img
+      class="logo"
       src="/image?filename=static/images/logo.png"
-      width="180"
       alt="Site Logo"
     />
 
     {% if flashmsg %}
-    <p
-      class="alert"
-      style="text-align: center; background: #ffe; border: 1px solid #cc9"
-    >
-      {{ flashmsg|safe }}
-    </p>
+    <p class="alert">{{ flashmsg|safe }}</p>
     {% endif %}
 
-    <h2>Upload & convert</h2>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" /><br /><br />
-      <label>
-        Page #:
-        <input
-          type="number"
-          name="page"
-          min="1"
-          value="1"
-          style="width: 70px"
-        /> </label
-      ><br /><br />
-      <button type="submit">Upload</button>
-    </form>
+    <div class="card">
+      <h2>Upload & convert</h2>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" /><br /><br />
+        <label>
+          Page #:
+          <input
+            type="number"
+            name="page"
+            min="1"
+            value="1"
+            style="width: 70px"
+          /> </label
+        ><br /><br />
+        <button type="submit">Upload</button>
+      </form>
+    </div>
 
     <script>
       const dom = decodeURIComponent(location.hash.slice(1));
-      if (dom) {
-        document.body.insertAdjacentHTML("beforeend", dom);
-      }
+      if (dom) document.body.insertAdjacentHTML("beforeend", dom);
     </script>
   </body>
 </html>
