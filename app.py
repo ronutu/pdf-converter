@@ -1,3 +1,4 @@
+import datetime
 import os
 import sqlite3
 import urllib.parse
@@ -17,21 +18,18 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 def image():
     raw_name = request.args.get("filename", "")
     if "../" in raw_name or "%2e" in raw_name.lower():
-        return "❌ Suspicious filename", 400
-
+        return "Suspicious filename", 400
     filename = urllib.parse.unquote(raw_name)
     file_path = os.path.join(BASE_DIR, filename)
     try:
         return send_file(file_path)
     except FileNotFoundError:
-        return "❌ File not found", 404
+        return "Not found", 404
 
 
 @app.route("/run-script", methods=["POST"])
 def run_script():
-
     filename = request.form.get("filename", "")
-
     os.system("python src/main.py")
     output = getoutput(f"echo {filename}")
     return f"<pre>{output}</pre>"
@@ -43,8 +41,8 @@ def unsafe_render():
     return render_template_string(user_content)
 
 
-@app.route("/logs")
-def logs():
+@app.route("/records")
+def records():
     query = request.args.get("query", "1=1")
     conn = sqlite3.connect("logs.db")
     cur = conn.cursor()
@@ -55,8 +53,8 @@ def logs():
     )
 
 
-@app.route("/xss")
-def xss():
+@app.route("/preview")
+def preview():
     user_input = request.args.get("input", "")
     return f"<p>{user_input}</p>"
 
@@ -65,18 +63,23 @@ def xss():
 def upload():
     if "file" not in request.files or request.files["file"].filename == "":
         return "No file selected", 400
-
     f = request.files["file"]
     in_path = os.path.join(app.config["UPLOAD_FOLDER"], f.filename)
     f.save(in_path)
-
     out_html = os.path.join(app.config["UPLOAD_FOLDER"], "output.html")
-
-    page_raw = request.form.get("page", "1")
-    page_nr = int(page_raw)
-
+    page_nr = int(request.form.get("page", "1"))
     os.system(f'python src/main.py "{in_path}" "{out_html}" {page_nr}')
-
+    conn = sqlite3.connect("logs.db")
+    cur = conn.cursor()
+    cur.execute(
+        "CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY AUTOINCREMENT, level TEXT, message TEXT, created TEXT)"
+    )
+    cur.execute(
+        "INSERT INTO logs(level, message, created) VALUES (?,?,?)",
+        ("INFO", os.path.basename(out_html), datetime.datetime.utcnow().isoformat()),
+    )
+    conn.commit()
+    conn.close()
     return render_template(
         "download.html", file_url=f"/download?filename={os.path.basename(out_html)}"
     )
@@ -90,10 +93,8 @@ def download():
 
 @app.route("/")
 def home():
-    # used for user-friendly “flash” banner; doubles as Reflected-XSS sink
     flashmsg = request.args.get("msg", "")
     return render_template("home.html", flashmsg=flashmsg)
-
 
 
 if __name__ == "__main__":
