@@ -90,7 +90,9 @@ def download():
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    # used by the new search-bar; NOT escaped → reflected-XSS sink
+    searched = request.args.get("search", "")
+    return render_template("home.html", searched=searched)
 
 
 @app.route("/domxss")
