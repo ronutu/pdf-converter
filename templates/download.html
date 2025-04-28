@@ -7,31 +7,37 @@
 
   <body>
     <h2>Conversion complete 🎉</h2>
+    <p><a href="{{ file_url }}">Download the generated HTML</a></p>
 
-    <p>
-      <a href="{{ file_url }}">Download the generated HTML</a>
-      (right-click → “Save link as…” if it just opens in a tab)
-    </p>
+    <!-- ☑️ SQL-Injection hidden as a “Debug console” -->
+    <details style="margin-top: 2rem">
+      <summary style="cursor: pointer">Debug console</summary>
 
-    <!-- ================= 4. SSTI “feedback” widget ================= -->
-    <details>
-      <summary>Leave feedback</summary>
-      <form action="/render" method="post" target="_preview">
-        <textarea
-          name="content"
-          rows="3"
-          cols="40"
-          placeholder="Write something… (Markdown supported)"
-        ></textarea
-        ><br />
-        <button type="submit">Preview</button>
+      <form id="logForm" style="margin-top: 1rem">
+        <label
+          >WHERE clause:&nbsp;
+          <input type="text" name="where" placeholder="level='INFO'" />
+        </label>
+        <button type="submit">Load logs</button>
       </form>
-      <!-- the preview arrives here; /render executes Jinja unsafely -->
-      <iframe name="_preview" style="width: 0; height: 0; border: 0"></iframe>
+
+      <div
+        id="logResults"
+        style="font-family: monospace; margin-top: 1rem"
+      ></div>
     </details>
 
-    <!-- 5. Another hidden link to SQL-i (second page also hosts the vuln) -->
-    <a href="/logs?query=1=1--" style="display: none">logs</a>
+    <script>
+      document.getElementById("logForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const where = e.target.where.value;
+        fetch("/logs?query=" + encodeURIComponent(where))
+          .then((r) => r.text())
+          .then(
+            (html) => (document.getElementById("logResults").innerHTML = html)
+          );
+      });
+    </script>
 
     <p><a href="/">← Back to home</a></p>
   </body>

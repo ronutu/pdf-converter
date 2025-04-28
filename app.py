@@ -90,14 +90,10 @@ def download():
 
 @app.route("/")
 def home():
-    # used by the new search-bar; NOT escaped → reflected-XSS sink
-    searched = request.args.get("search", "")
-    return render_template("home.html", searched=searched)
+    # used for user-friendly “flash” banner; doubles as Reflected-XSS sink
+    flashmsg = request.args.get("msg", "")
+    return render_template("home.html", flashmsg=flashmsg)
 
-
-@app.route("/domxss")
-def domxss():
-    return render_template("domxss.html")
 
 
 if __name__ == "__main__":

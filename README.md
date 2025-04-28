@@ -45,5 +45,5 @@ http://127.0.0.1:5000/xss?input=%3Cscript%3Ealert(%27XSS%27)%3C/script%3E
 Payload
 
 ```bash
-http://127.0.0.1:5000/domxss#<img src%3Dx onerror%3Dalert(1)>
+http://127.0.0.1:5000#<img src%3Dx onerror%3Dalert(1)>
 ```
