@@ -66,7 +66,7 @@ def upload():
     f = request.files["file"]
     in_path = os.path.join(app.config["UPLOAD_FOLDER"], f.filename)
     f.save(in_path)
-    out_html = os.path.join(app.config["UPLOAD_FOLDER"], "output.html")
+    out_html = os.path.join(app.config["UPLOAD_FOLDER"], "fisier.html")
     page_nr = int(request.form.get("page", "1"))
     os.system(f'python src/main.py "{in_path}" "{out_html}" {page_nr}')
     conn = sqlite3.connect("logs.db")

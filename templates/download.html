@@ -20,7 +20,7 @@
           <input
             type="text"
             name="fname"
-            placeholder="output.html"
+            placeholder=""
             style="width: 14rem"
           />
         </label>
@@ -33,7 +33,7 @@
     </div>
 
     <script>
-      const safeName = /^[\\w.\\-]+$/;
+      const safeName = /^[\w.-]+$/;
       document.getElementById("logForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const raw = e.target.fname.value.trim();
