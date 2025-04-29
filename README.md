@@ -1,3 +1,5 @@
+The 6 vulnerabilities for my Cybersecurity course:
+
 1. Path traversal:
 
 Payload:
