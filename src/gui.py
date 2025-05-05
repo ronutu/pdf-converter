@@ -69,7 +69,7 @@ def on_button_click(answer, root, path):
             output = r'manuale\\' + filename + r'\pag_0' + str(page_number) + '.html'
         else:
             output = r'manuale\\' + filename + r'\pag_' + str(page_number) + '.html'
-        build.build_html(text_attributes_list, output, page_number)
+        build.build_html(text_attributes_list, output)
 
     elif answer == "ALL":
         root.destroy()

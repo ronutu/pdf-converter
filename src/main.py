@@ -1,3 +1,5 @@
+"""pdf-converter - PDF to HTML converter."""
+
 # This file is part of pdf-converter.
 #
 # pdf-converter is free software: you can redistribute it and/or modify
@@ -14,20 +16,21 @@
 # along with pdf-converter. If not, see <https://www.gnu.org/licenses/>.
 
 
-import gui
 import time
 from datetime import timedelta
 
+import gui
 
 start_time = time.time()
 
 
-def main():
+def main() -> None:
+    """Main function to run the GUI."""
     gui.create_question_box()
 
 
 main()
 
 elapsed = time.time() - start_time
-formatted_elapsed = str(timedelta(seconds=int(elapsed)))
-print(f"Elapsed time: {formatted_elapsed}")
+FORMATTED_ELAPSED = str(timedelta(seconds=int(elapsed)))
+print(f"Elapsed time: {FORMATTED_ELAPSED}")
